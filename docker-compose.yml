@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+    node:
+        build:
+            context: .
+            target: dev
+        ports:
+            - 3000:80
+        volumes:
+            - ./src:/app/src
+        environment:
+            - DB_HOST=mariadb
+    mariadb:
+        image: mariadb
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - ./data:/var/lib/mysql
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080
