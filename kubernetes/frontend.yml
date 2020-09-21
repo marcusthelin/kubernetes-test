@@ -6,7 +6,7 @@ metadata:
     labels:
         app: frontend
 spec:
-    replicas: 2
+    replicas: 1
     selector:
         matchLabels:
             app: frontend
@@ -17,8 +17,18 @@ spec:
         spec:
             containers:
                 - name: frontend
-                  image: kube-persistent_node
-
+                  imagePullPolicy: Never
+                  image: kubernetes-test_node
+                  env:
+                      - name: DB_HOST
+                        value: 'mariadb-svc'
+                  volumeMounts:
+                      - name: frontend-storage
+                        mountPath: /app/src
+            volumes:
+                - name: frontend-storage
+                  persistentVolumeClaim:
+                      claimName: frontend-pvc
 ---
 kind: Service
 apiVersion: v1

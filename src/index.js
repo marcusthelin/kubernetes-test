@@ -30,8 +30,13 @@ mariadb
 
         const hostname = require('os').hostname();
 
-        app.get('/', (req, res) => {
-            res.send('Hello from ' + hostname);
+        app.get('/', async (req, res) => {
+            const allUsers = await User.findAll();
+            res.send(`
+                <h2>Hello World! From ${hostname}</h2>
+                <h3>Version: ${process.env.VERSION}</h3>
+                ${JSON.stringify(allUsers, null, 4)}
+            `);
         });
 
         app.get('/status', (req, res) => {

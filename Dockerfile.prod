@@ -6,8 +6,8 @@ ADD package.json .
 
 RUN npm install
 
-RUN npm install -g nodemon
+ADD src ./src
 
-ENV VERSION "1"
+ENV VERSION "2"
 
-CMD [ "npm", "start" ]
+CMD ["node", "src/index.js"]

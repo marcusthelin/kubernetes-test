@@ -2,9 +2,7 @@ version: '3'
 
 services:
     node:
-        build:
-            context: .
-            target: dev
+        build: ./
         ports:
             - 3000:80
         volumes:
